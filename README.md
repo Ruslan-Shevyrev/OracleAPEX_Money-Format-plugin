@@ -1,7 +1,7 @@
 # MoneyFormat
 Oracle APEX plugin used to convert number to money (currency) format
 
-APEX Version: 		19.2.0.00.18
+APEX Version: 		19.2.0.00.18\
 APEX realize date: 	2019.10.04
 
 ## AutoNumeric
