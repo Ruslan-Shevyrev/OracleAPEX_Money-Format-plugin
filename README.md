@@ -13,6 +13,15 @@ LICENSE https://github.com/Ruslan-Shevyrev/apex-plugin-MoneyFormat/blob/master/L
 ## Parameters
 
 ### Decimal Character
+Defines what decimal separator character is used
+
+**Type:** 		*SelectList*
+
+**values:**		*.*
+				*,*
+                *&#9110*
+				*٫*
+		
 
 #### Instructions
 1.  Download and install plugin
