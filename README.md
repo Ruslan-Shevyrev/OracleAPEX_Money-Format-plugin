@@ -10,5 +10,9 @@ https://github.com/autoNumeric/autoNumeric
 
 LICENSE https://github.com/Ruslan-Shevyrev/apex-plugin-MoneyFormat/blob/master/LICENSE_AUTONUMERIC
 
-### Instructions
+## Parameters
+
+### Decimal Character
+
+#### Instructions
 1.  Download and install plugin
