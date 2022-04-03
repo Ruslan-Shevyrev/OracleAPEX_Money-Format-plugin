@@ -16,12 +16,17 @@ LICENSE https://github.com/Ruslan-Shevyrev/apex-plugin-MoneyFormat/blob/master/L
 Defines what decimal separator character is used
 
 **Type:** 		*SelectList*
-
-**values:**		*.*
-				*,*
-                *&#9110*
-				*٫*
 		
+### Digit Group Separator	
+Defines the thousand grouping separator character
+
+**Type:** 		*SelectList*
+
+### Decimal Character Alternative
+Allow to declare an alternative decimal separator which is automatically replaced by `decimalCharacter` when typed
+This is useful for countries that use a comma ',' as the decimal character and have keyboards with numeric pads providing a period '.' as the decimal character (in France or Spain for instance)
+
+**Type:** 		*Text*
 
 #### Instructions
 1.  Download and install plugin
