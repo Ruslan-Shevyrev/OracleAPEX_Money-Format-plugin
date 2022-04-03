@@ -28,8 +28,8 @@ prompt APPLICATION 14237 - MoneyFormat - Demo
 -- Application Export:
 --   Application:     14237
 --   Name:            MoneyFormat - Demo
---   Date and Time:   11:33 Sunday April 3, 2022
---   Exported By:     RUSLAN.SHEVYREV@GMAIL.RU
+--   Date and Time:   12:09 Sunday April 3, 2022
+--   Exported By:     RUSLAN.SHEVYREV@GMAIL.COM
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
@@ -101,6 +101,7 @@ wwv_flow_api.create_plugin(
 ,p_substitute_attributes=>true
 ,p_subscribe_plugin_settings=>true
 ,p_version_identifier=>'1.0'
+,p_about_url=>'https://github.com/Ruslan-Shevyrev/apex-plugin-MoneyFormat/blob/master/README.md'
 ,p_files_version=>3
 );
 wwv_flow_api.create_plugin_attribute(
