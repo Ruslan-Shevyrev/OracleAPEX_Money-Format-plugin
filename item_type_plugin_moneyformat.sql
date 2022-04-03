@@ -13,29 +13,29 @@ whenever sqlerror exit sql.sqlcode rollback
 --------------------------------------------------------------------------------
 begin
 wwv_flow_api.import_begin (
- p_version_yyyy_mm_dd=>'2021.10.15'
-,p_release=>'21.2.5'
+ p_version_yyyy_mm_dd=>'2019.10.04'
+,p_release=>'19.2.0.00.18'
 ,p_default_workspace_id=>44407935964197361606
-,p_default_application_id=>40215
+,p_default_application_id=>14237
 ,p_default_id_offset=>0
 ,p_default_owner=>'WKSP_APEXRUSLAN'
 );
 end;
 /
  
-prompt APPLICATION 40215 - TestApp
+prompt APPLICATION 14237 - MoneyFormat - Demo
 --
 -- Application Export:
---   Application:     40215
---   Name:            TestApp
---   Date and Time:   09:19 Sunday April 3, 2022
---   Exported By:     RUSLAN-SHEVYREV@MAIL.RU
+--   Application:     14237
+--   Name:            MoneyFormat - Demo
+--   Date and Time:   11:33 Sunday April 3, 2022
+--   Exported By:     RUSLAN.SHEVYREV@GMAIL.RU
 --   Flashback:       0
 --   Export Type:     Component Export
 --   Manifest
---     PLUGIN: 53671944005651026264
+--     PLUGIN: 107654710821710212544
 --   Manifest End
---   Version:         21.2.5
+--   Version:         19.2.0.00.18
 --   Instance ID:     63113759365424
 --
 
@@ -47,11 +47,11 @@ end;
 prompt --application/shared_components/plugins/item_type/moneyformat
 begin
 wwv_flow_api.create_plugin(
- p_id=>wwv_flow_api.id(53671944005651026264)
+ p_id=>wwv_flow_api.id(107654710821710212544)
 ,p_plugin_type=>'ITEM TYPE'
 ,p_name=>'MONEYFORMAT'
 ,p_display_name=>'MoneyFormat'
-,p_supported_ui_types=>'DESKTOP'
+,p_supported_ui_types=>'DESKTOP:JQM_SMARTPHONE'
 ,p_supported_component_types=>'APEX_APPLICATION_PAGE_ITEMS:APEX_APPL_PAGE_IG_COLUMNS'
 ,p_plsql_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'PROCEDURE render_item(p_item               IN apex_plugin.t_item,',
@@ -61,8 +61,9 @@ wwv_flow_api.create_plugin(
 '                     ',
 '                     ',
 'IS',
-'  a$attr_01 p_item.attribute_01%TYPE := p_item.attribute_01;',
-'  a$attr_02 p_item.attribute_02%TYPE := p_item.attribute_02;',
+'  v$decimalCharacter p_item.attribute_01%TYPE := p_item.attribute_01;',
+'  v$digitGroupSeparator p_item.attribute_02%TYPE := p_item.attribute_02;',
+'  v$decimalCharacterAlternative p_item.attribute_03%TYPE := p_item.attribute_03;',
 '',
 '  v$result              apex_plugin.t_page_item_render_result;',
 '  v$html_string         VARCHAR2(2000);',
@@ -81,10 +82,11 @@ wwv_flow_api.create_plugin(
 '    -- write item html',
 '    htp.p(v$html_string);',
 '',
-'    apex_javascript.add_onload_code (''  new AutoNumeric("#''||v$element_item_id||''", {',
-'    decimalCharacter : ".",',
-'    digitGroupSeparator : " ",',
-'});'');',
+'    apex_javascript.add_onload_code (''  new AutoNumeric("#''||v$element_item_id||''", {''||',
+'    case when v$decimalCharacterAlternative is not null then ''decimalCharacterAlternative : "''||v$decimalCharacterAlternative||''",'' else '''' end ||',
+'    ''decimalCharacter : "''||v$decimalCharacter||''",''||',
+'    ''digitGroupSeparator : "''|| case when v$digitGroupSeparator is not null then v$digitGroupSeparator else '''' end || ''",'' ||',
+'''});'');',
 '',
 '    -- add JavaScript files',
 '    apex_javascript.add_library(p_name           => ''autonumeric.min'',',
@@ -102,26 +104,126 @@ wwv_flow_api.create_plugin(
 ,p_files_version=>3
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(53964083398869069405)
-,p_plugin_id=>wwv_flow_api.id(53671944005651026264)
+ p_id=>wwv_flow_api.id(53985212653881669579)
+,p_plugin_id=>wwv_flow_api.id(107654710821710212544)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>1
 ,p_display_sequence=>10
-,p_prompt=>'decimalCharacter'
-,p_attribute_type=>'TEXT'
-,p_is_required=>false
+,p_prompt=>'Decimal Character'
+,p_attribute_type=>'SELECT LIST'
+,p_is_required=>true
+,p_default_value=>'.'
 ,p_is_translatable=>false
+,p_lov_type=>'STATIC'
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53985231999962670703)
+,p_plugin_attribute_id=>wwv_flow_api.id(53985212653881669579)
+,p_display_sequence=>10
+,p_display_value=>'.'
+,p_return_value=>'.'
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53985339604282672049)
+,p_plugin_attribute_id=>wwv_flow_api.id(53985212653881669579)
+,p_display_sequence=>20
+,p_display_value=>','
+,p_return_value=>','
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53985253507847289754)
+,p_plugin_attribute_id=>wwv_flow_api.id(53985212653881669579)
+,p_display_sequence=>30
+,p_display_value=>unistr('\00B7')
+,p_return_value=>unistr('\00B7')
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53985260296837291139)
+,p_plugin_attribute_id=>wwv_flow_api.id(53985212653881669579)
+,p_display_sequence=>40
+,p_display_value=>unistr('\2396')
+,p_return_value=>unistr('\2396')
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53985265339359292334)
+,p_plugin_attribute_id=>wwv_flow_api.id(53985212653881669579)
+,p_display_sequence=>50
+,p_display_value=>unistr('\066B')
+,p_return_value=>unistr('\066B')
 );
 wwv_flow_api.create_plugin_attribute(
- p_id=>wwv_flow_api.id(53964094256588072466)
-,p_plugin_id=>wwv_flow_api.id(53671944005651026264)
+ p_id=>wwv_flow_api.id(53989325956768490793)
+,p_plugin_id=>wwv_flow_api.id(107654710821710212544)
 ,p_attribute_scope=>'COMPONENT'
 ,p_attribute_sequence=>2
 ,p_display_sequence=>20
-,p_prompt=>'digitGroupSeparator'
+,p_prompt=>'Digit Group Separator'
+,p_attribute_type=>'SELECT LIST'
+,p_is_required=>false
+,p_is_translatable=>false
+,p_lov_type=>'STATIC'
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989334022309493281)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>10
+,p_display_value=>'space " "'
+,p_return_value=>' '
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989401299579881596)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>20
+,p_display_value=>'comma ","'
+,p_return_value=>','
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989410556060883791)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>30
+,p_display_value=>'dot "."'
+,p_return_value=>'.'
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989474002495501918)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>40
+,p_display_value=>'apostrophe "''"'
+,p_return_value=>''''
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989476804117503389)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>50
+,p_display_value=>unistr('arabicThousandsSeparator "\066C"')
+,p_return_value=>unistr('\066C')
+);
+wwv_flow_api.create_plugin_attr_value(
+ p_id=>wwv_flow_api.id(53989421473076889189)
+,p_plugin_attribute_id=>wwv_flow_api.id(53989325956768490793)
+,p_display_sequence=>60
+,p_display_value=>unistr('dotAbove "\02D9"')
+,p_return_value=>unistr('\02D9')
+);
+wwv_flow_api.create_plugin_attribute(
+ p_id=>wwv_flow_api.id(53986742100575758602)
+,p_plugin_id=>wwv_flow_api.id(107654710821710212544)
+,p_attribute_scope=>'COMPONENT'
+,p_attribute_sequence=>3
+,p_display_sequence=>30
+,p_prompt=>'Decimal Character Alternative'
 ,p_attribute_type=>'TEXT'
 ,p_is_required=>false
 ,p_is_translatable=>false
+,p_examples=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Allow to declare an alternative decimal separator which is automatically replaced by `decimalCharacter` when typed',
+'This is useful for countries that use a comma '','' as the decimal character and have keyboards with numeric pads providing a period ''.'' as the decimal character (in France or Spain for instance)'))
+,p_help_text=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Allow to declare an alternative decimal separator which is automatically replaced by `decimalCharacter` when typed',
+'This is useful for countries that use a comma '','' as the decimal character and have keyboards with numeric pads providing a period ''.'' as the decimal character (in France or Spain for instance)'))
+,p_attribute_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Allow to declare an alternative decimal separator which is automatically replaced by `decimalCharacter` when typed',
+'This is useful for countries that use a comma '','' as the decimal character and have keyboards with numeric pads providing a period ''.'' as the decimal character (in France or Spain for instance)'))
 );
 end;
 /
@@ -2118,8 +2220,8 @@ end;
 /
 begin
 wwv_flow_api.create_plugin_file(
- p_id=>wwv_flow_api.id(53743649742341088989)
-,p_plugin_id=>wwv_flow_api.id(53671944005651026264)
+ p_id=>wwv_flow_api.id(107726416558400275269)
+,p_plugin_id=>wwv_flow_api.id(107654710821710212544)
 ,p_file_name=>'autonumeric.min.js'
 ,p_mime_type=>'text/javascript'
 ,p_file_charset=>'utf-8'
