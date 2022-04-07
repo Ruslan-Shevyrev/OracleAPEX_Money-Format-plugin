@@ -21,7 +21,7 @@ Defines what decimal separator character is used
 ### Digit Group Separator	
 Defines the thousand grouping separator character
 
-**Type:** 		*SelectList1*
+**Type:** 		*SelectList11*
 
 ### Decimal Character Alternative
 Allow to declare an alternative decimal separator which is automatically replaced by `decimalCharacter` when typed
